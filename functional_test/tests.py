@@ -1,14 +1,16 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
-import unittest
 
 from selenium.webdriver.common.keys import Keys
 
 
 class NewVisitorTest(LiveServerTestCase):
     def setUp(self):
+        self.initBrowser()
+        self.browser.implicitly_wait(1) # seconds
+
+    def initBrowser(self):
         self.browser = webdriver.Chrome('drivers/chromedriver')
-        self.browser.implicitly_wait(3) # seconds
 
     def tearDown(self):
         self.browser.quit()
@@ -27,12 +29,14 @@ class NewVisitorTest(LiveServerTestCase):
 
         # 그녀는 바로 작업을 추가하기로 한다.
 
-
         # "공작기털 사기"라고 텍스트 상자에 입력한다.
         # (에디스의 취미는 날치 잡이용 그물을 만드는 것이다.)
         # 엔터키를 치면 페이지가 갱신되고 작업 목록에
         # "1: 공작깃털 사기" 아이템이 추가된다.
         self.sendInputText('공작깃털 사기')
+
+        edit_list_url = self.browser.current_url
+        self.assertRegex(edit_list_url, '/list/.+')
 
         self.check_for_row_in_list_table('1: 공작깃털 사기')
 
@@ -43,6 +47,26 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_row_in_list_table('2: 공작깃털을 이용해서 그물 만들기')
 
 
+        # 새로운 사용자인 프란시스가 사이트에 접속한다.
+
+        self.browser.quit()
+        self.initBrowser()
+
+        self.browser.get(self.live_server_url)
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('공작깃털 사기', page_text)
+        self.assertNotIn('그물 만들기', page_text)
+
+        self.sendInputText('우유 사기')
+        self.check_for_row_in_list_table('1: 우유 사기')
+
+        francis_list_url = self.browser.current_url
+        self.assertRegex(francis_list_url, '/list/.+')
+        self.assertNotEqual(francis_list_url, edit_list_url)
+
+        page_text = self.browser.find_element_by_tag_name('body').text
+        self.assertNotIn('공작깃털 사기', page_text)
+        self.assertIn('우유 사기', page_text)
         # 에디스는 사이트가 입력한 목록을 저장하고 있는지 궁금하다.
         #  사이트는 그녀를 위한 특정 URL을 생성해준다.
         # 이때 URL에 대한 설명도 함께 제공된다.
