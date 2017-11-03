@@ -49,15 +49,27 @@ class HomePageTest(TestCase):
 
         response = home_page(request)
 
-        self.assertEqual(Item.objects.count(), 1)
-        new_item = Item.objects.first()
-        self.assertEqual('신규 작업 아이템', new_item.text)
-        self.assertIn('신규 작업 아이템', response.content.decode())
+        # self.assertEqual(Item.objects.count(), 1)
+        # new_item = Item.objects.first()
+        # self.assertEqual('신규 작업 아이템', new_item.text)
+        # self.assertIn('신규 작업 아이템', response.content.decode())
 
-        observed_html = self.getContentDecode(response)
-        expected_html = render_to_string('home.html', {'new_item_text':'신규 작업 아이템'})
-        self.assertEqual(observed_html, expected_html)
 
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/')
+        # observed_html = self.getContentDecode(response)
+        # expected_html = render_to_string('home.html', {'new_item_text':'신규 작업 아이템'})
+        # self.assertEqual(observed_html, expected_html)
+
+    def test_home_page_displays_all_list_items(self):
+        Item.objects.create(text='itemey 1')
+        Item.objects.create(text='itemey 2')
+
+        request = HttpRequest()
+        response = home_page(request)
+
+        self.assertIn('itemey 1', response.content.decode())
+        self.assertIn('itemey 2', response.content.decode())
 
     def getContentDecode(self, response):
         # CSRF tokens don't get render_to_string'd
