@@ -7,6 +7,7 @@ from django.test import TestCase
 from lists.views import home_page
 from lists.models import Item
 
+
 # Create your tests here.
 
 class ItemModelTest(TestCase):
@@ -29,8 +30,6 @@ class ItemModelTest(TestCase):
 
 
 class HomePageTest(TestCase):
-
-
     def test_root_url_resolves_to_home_page_view(self):
         found = resolve('/')
         self.assertEqual(found.func, home_page)
@@ -77,9 +76,8 @@ class HomePageTest(TestCase):
         observed_html = re.sub(csrf_regex, '', response.content.decode())
         return observed_html
 
+
 class ListViewTest(TestCase):
-
-
     def test_home_page_displays_all_list_items(self):
         Item.objects.create(text='itemey 1')
         Item.objects.create(text='itemey 2')
@@ -98,3 +96,16 @@ class ListViewTest(TestCase):
     def test_uses_list_template(self):
         response = self.client.get('/lists/the-only-list-in-the-world/')
         self.assertTemplateUsed(response, 'list.html')
+
+    def test_saving_a_POST_request(self):
+        self.client.post('/lists/new'
+                         , data={'item_text': '신규 작업 아이템'})
+        self.assertEqual(Item.objects.count(), 1)
+        new_item = Item.objects.first()
+        self.assertEqual(new_item.text, '신규 작업 아이템')
+
+    def test_redirects_after_POST(self):
+        response = self.client.post('/lists/new'
+                                    , data={'item_text': '신규 작업 아이템'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
