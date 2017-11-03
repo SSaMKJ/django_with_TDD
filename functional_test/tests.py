@@ -36,7 +36,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.sendInputText('공작깃털 사기')
 
         edit_list_url = self.browser.current_url
-        self.assertRegex(edit_list_url, '/list/.+')
+        self.assertRegex(edit_list_url, '/lists/.+')
 
         self.check_for_row_in_list_table('1: 공작깃털 사기')
 
@@ -61,7 +61,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.check_for_row_in_list_table('1: 우유 사기')
 
         francis_list_url = self.browser.current_url
-        self.assertRegex(francis_list_url, '/list/.+')
+        self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edit_list_url)
 
         page_text = self.browser.find_element_by_tag_name('body').text

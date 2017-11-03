@@ -56,7 +56,7 @@ class HomePageTest(TestCase):
 
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
         # observed_html = self.getContentDecode(response)
         # expected_html = render_to_string('home.html', {'new_item_text':'신규 작업 아이템'})
         # self.assertEqual(observed_html, expected_html)
@@ -76,3 +76,25 @@ class HomePageTest(TestCase):
         csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
         observed_html = re.sub(csrf_regex, '', response.content.decode())
         return observed_html
+
+class ListViewTest(TestCase):
+
+
+    def test_home_page_displays_all_list_items(self):
+        Item.objects.create(text='itemey 1')
+        Item.objects.create(text='itemey 2')
+
+        request = HttpRequest()
+        # response = home_page(request)
+
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+
+        self.assertIn('itemey 1', response.content.decode())
+        self.assertIn('itemey 2', response.content.decode())
+
+        # self.assertContains('itemey 1', response)
+        # self.assertContains('itemey 2', response)
+
+    def test_uses_list_template(self):
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+        self.assertTemplateUsed(response, 'list.html')

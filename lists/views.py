@@ -11,7 +11,11 @@ def home_page(request):
         textItem = Item()
         textItem.text = text
         textItem.save()
-        return redirect('/')
+        return redirect('/lists/the-only-list-in-the-world/')
 
 
     return render(request, 'home.html', {'items' : Item.objects.all()})
+
+
+def view_list(request):
+    return render(request, 'home.html', {'items': Item.objects.all()})
