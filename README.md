@@ -4,3 +4,7 @@
 - 모델 생성 후 makemigration 을 통해서 DB의 테이블을 만든다.
     - python3 manage.py makemigration
     - python3 manage.py migrate --run-syncdb
+    
+- sqlite3 초기화
+    - rm db.mysqlite3
+    - python3 manage.py migrate --noinput
