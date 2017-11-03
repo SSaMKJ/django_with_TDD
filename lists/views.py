@@ -11,15 +11,7 @@ def home_page(request):
 
 
 def view_list(request, list_id):
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
-    print('list_id = '+list_id)
+    # 정규식으로 넘어오는 path variable 이 자동으로 list_id에 매핑되는구나... 좋네.
     list_ = List.objects.get(list_id)
     items = Item.objects.filter(list=list_)
     return render(request, 'list.html', {'items': items})
