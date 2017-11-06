@@ -62,10 +62,10 @@ class HomePageTest(TestCase):
         # new_item = Item.objects.first()
         # self.assertEqual('신규 작업 아이템', new_item.text)
         # self.assertIn('신규 작업 아이템', response.content.decode())
-
+        _list = List.objects.first()
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/lists/')
+        self.assertEqual(response['location'], '/lists/%d/'%(_list.id))
         # observed_html = self.getContentDecode(response)
         # expected_html = render_to_string('home.html', {'new_item_text':'신규 작업 아이템'})
         # self.assertEqual(observed_html, expected_html)
@@ -76,17 +76,21 @@ class HomePageTest(TestCase):
         Item.objects.create(text='itemey 2', list = list_)
 
         request = HttpRequest()
-        response = view_list(request)
+        response = view_list(request, list_.id)
 
         self.assertIn('itemey 1', response.content.decode())
         self.assertIn('itemey 2', response.content.decode())
 
     def getContentDecode(self, response):
+        return ToolsForTest().getContentDecode(response)
+
+
+class ToolsForTest():
+    def getContentDecode(self, response):
         # CSRF tokens don't get render_to_string'd
         csrf_regex = r'<input[^>]+csrfmiddlewaretoken[^>]+>'
         observed_html = re.sub(csrf_regex, '', response.content.decode())
         return observed_html
-
 
 class ListViewTest(TestCase):
     def test_home_page_displays_all_list_items(self):
@@ -97,7 +101,7 @@ class ListViewTest(TestCase):
         request = HttpRequest()
         # response = home_page(request)
 
-        response = self.client.get('/lists/the-only-list-in-the-world/')
+        response = self.client.get('/lists/%d/'%(list_.id))
 
         self.assertIn('itemey 1', response.content.decode())
         self.assertIn('itemey 2', response.content.decode())
@@ -137,5 +141,6 @@ class ListViewTest(TestCase):
     def test_redirects_after_POST(self):
         response = self.client.post('/lists/new'
                                     , data={'item_text': '신규 작업 아이템'})
+        new_list = List.objects.first()
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
+        self.assertEqual(response['location'], '/lists/%d/'%(new_list.id))
