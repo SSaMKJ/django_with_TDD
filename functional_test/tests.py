@@ -77,6 +77,18 @@ class NewVisitorTest(LiveServerTestCase):
         # 만족하고 잠자리에 든다.
 
 
+    def test_layout_and_styling(self):
+        self.browser.get(self.live_server_url)
+        self.browser.set_window_size(1024, 768)
+
+        # 그녀는 입력 사자가 가운데 배치된 것을 본다
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x']+inputbox.size['width']/2,
+            512,
+            dalta=10
+        )
+
     def check_for_row_in_list_table(self, saved_item):
         rows = self.getTableRows()
         self.assertIn(saved_item, [row.text for row in rows], '신규 작업이 테이블에 표시되지 않는다.')
@@ -95,6 +107,7 @@ class NewVisitorTest(LiveServerTestCase):
         inputbox = self.browser.find_element_by_id('id_new_item')
         self.assertEqual(inputbox.get_attribute('placeholder'), '작업 아이템 입력')
         return inputbox
+
 
 
 # if __name__ == '__main__':
