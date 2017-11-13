@@ -89,6 +89,15 @@ class NewVisitorTest(LiveServerTestCase):
             delta=10
         )
 
+        self.sendInputText('testing\n')
+        # 그녀는 입력 사자가 가운데 배치된 것을 본다
+        inputbox = self.browser.find_element_by_id('id_new_item')
+        self.assertAlmostEqual(
+            inputbox.location['x'] + inputbox.size['width'] / 2,
+            512,
+            delta=10
+        )
+
     def check_for_row_in_list_table(self, saved_item):
         rows = self.getTableRows()
         self.assertIn(saved_item, [row.text for row in rows], '신규 작업이 테이블에 표시되지 않는다.')
