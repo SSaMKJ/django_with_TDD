@@ -5,15 +5,12 @@
     <title>To-Do lists</title>
 </head>
 <body>
-    <h1>Your To-Do list</h1>
-    <form method="POST" action="/lists/new">
+    <h1>{% block header_text %}{% endblock %}</h1>
+    <form method="POST" action="{% block form_action %}{% endblock %}">
         <input id="id_new_item" name="item_text" placeholder="작업 아이템 입력"/>
         {% csrf_token %}
     </form>
-    <table id="id_list_table">
-        {% for item in items %}
-        <tr><td>{{ forloop.counter }}: {{ item.text }}</td></tr>
-        {% endfor %}
-    </table>
+    {% block table %}
+    {% endblock %}
 </body>
 </html>
