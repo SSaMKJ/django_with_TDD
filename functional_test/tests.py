@@ -86,7 +86,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.assertAlmostEqual(
             inputbox.location['x']+inputbox.size['width']/2,
             512,
-            dalta=10
+            delta=10
         )
 
     def check_for_row_in_list_table(self, saved_item):
