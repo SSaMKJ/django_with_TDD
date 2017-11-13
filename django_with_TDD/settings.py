@@ -120,3 +120,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
+# 원래는 '../static'이 올바르나 한 소스로 관리하기 위하여 동일 프로젝트에 두었다.
