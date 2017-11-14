@@ -64,3 +64,56 @@ $ git push
 ```
 - 모든 곳에서 동일한 환경의 파이썬 환경을 가질 수 있다.
 
+# MySQL 설정
+
+- 설치
+```bash
+$ pip install pymysql
+```
+
+- 설정 추가
+```python
+settings.py
+import pymysql
+
+pymysql.install_as_MySQLdb()
+```
+
+- db 설정 변경
+   - 기본적으로 아래와 같다.
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
+```
+- 이렇게 변경한다.
+```python
+settings.py
+
+import pymysql
+
+pymysql.install_as_MySQLdb()
+
+...
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_locker', # DB명
+        'USER': '', # 데이터베이스 계정
+        'PASSWORD': '', # 계정 비밀번호
+        'HOST': '', # 데이테베이스 주소(IP)
+        'PORT': '', # 데이터베이스 포트(보통은 3306)
+    }
+}
+```
+
+- 그 뒤에 마이그레이션 해 준다.
+```bash
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
