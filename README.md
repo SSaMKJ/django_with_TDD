@@ -119,3 +119,14 @@ DATABASES = {
 $ python manage.py makemigrations
 $ python manage.py migrate
 ```
+
+- pythonanywhere
+   - MySQL DB를 띄웠다.
+   - db도 만들었다. 이름을 넣으면 내 id$이름 식으로 자동으로 만들어진다.
+   - 비밀번호도 입력하였다.
+   - settings 폴더를 분리하였다.
+   - stage.py 파일을 만들고 github 에는 추가하지 않았다.
+   - 사이트에서 경로에 맞게끔 파일을 업로드 하였다.
+   - /var/www/jonathan7324_pythonanywhere_com_wsgi.py 파일을 수정하여 setting을 변경해 주었다.
+   - 서버 리스타트.
+   - MySQL로 변경하는 작업을 성공하였다.
