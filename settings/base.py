@@ -77,21 +77,21 @@ WSGI_APPLICATION = 'django_with_TDD.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_todo', # DB명
-        'USER': 'root', # 데이터베이스 계정
-        'PASSWORD': '', # 계정 비밀번호 helloworld12;
-        'HOST': '127.0.0.1', # 데이테베이스 주소(IP)
-        'PORT': '3306', # 데이터베이스 포트(보통은 3306)
-    }
-}
-
+# DATABASES = {
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     # }
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django_todo', # DB명
+#         'USER': 'root', # 데이터베이스 계정
+#         'PASSWORD': '', # 계정 비밀번호 helloworld12;
+#         'HOST': '127.0.0.1', # 데이테베이스 주소(IP)
+#         'PORT': '3306', # 데이터베이스 포트(보통은 3306)
+#     }
+# }
+#
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
