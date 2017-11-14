@@ -130,3 +130,14 @@ $ python manage.py migrate
    - /var/www/jonathan7324_pythonanywhere_com_wsgi.py 파일을 수정하여 setting을 변경해 주었다.
    - 서버 리스타트.
    - MySQL로 변경하는 작업을 성공하였다.
+   
+- MySQL로 변경한 뒤 테스트
+   - 이상하게 MySQL로는 테스트가 안되었다.
+   - db.sqlite3를 테스트 db로 사용하였다.
+   
+- 한글 깨짐 문제.
+   - 테이블을 만들 때 아래와 같이 해 준다.
+   
+```mysql
+CREATE DATABASE django_todo CHARACTER SET utf8 COLLATE utf8_general_ci;
+```

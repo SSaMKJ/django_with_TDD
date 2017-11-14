@@ -28,7 +28,7 @@ SECRET_KEY = '8c582zl4)@dh3vdq7l_stug)1#q_-1*w7w%-lir9=+%z%iw79z'
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = True
 
-ALLOWED_HOSTS = ['jonathan7324.pythonanywhere.com', '127.0.0.1']
+ALLOWED_HOSTS = ['jonathan7324.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
@@ -130,5 +130,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
+STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, '../../static'))
 # 원래는 '../static'이 올바르나 한 소스로 관리하기 위하여 동일 프로젝트에 두었다.

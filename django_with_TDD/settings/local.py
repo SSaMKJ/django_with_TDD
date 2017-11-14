@@ -1,6 +1,6 @@
 # local
 
-from settings.base import *
+from django_with_TDD.settings.base import *
 
 DEBUG = True
 
@@ -18,3 +18,8 @@ DATABASES = {
         'PORT': '3306', # 데이터베이스 포트(보통은 3306)
     }
 }
+
+
+DATABASE_OPTIONS = {'charset': 'utf8'}
+TIME_ZONE = 'Asia/Seoul'
+LANGUAGE_CODE = 'ko-kr'
