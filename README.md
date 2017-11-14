@@ -69,6 +69,8 @@ $ git push
 - 설치
 ```bash
 $ pip install pymysql
+- pythonanywhere 에서는 --user 옵션을 붙여줘야 한다.
+$ pip install --user pymysql
 ```
 
 - 설정 추가
