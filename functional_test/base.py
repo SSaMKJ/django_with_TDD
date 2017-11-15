@@ -46,6 +46,7 @@ class FunctionalTest(StaticLiveServerTestCase):
     def sendInputText(self, inputText):
         inputbox = self.find_input_box()
         inputbox.send_keys(inputText)
+        if inputText == '\n': return
         inputbox.send_keys(Keys.ENTER)
 
     def find_input_box(self):
