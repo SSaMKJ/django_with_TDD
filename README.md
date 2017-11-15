@@ -22,6 +22,11 @@ STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR, 'static'))
 $> python3 manage.py collectstatic
 ```    
 
+# app 추가하기
+```bash
+django-admin startapp myapp
+```
+
 # virtualenv 만드는 방법
 - 일단 없으면 설치.
 ```bash
