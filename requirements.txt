@@ -18,4 +18,4 @@ rsa==4.7
 six==1.11.0
 tzlocal==1.4
 uritemplate==3.0.0
-urllib3==1.22
+urllib3==1.26.5
